@@ -1,0 +1,87 @@
+<div id="chat">
+    {% for m in messages %}
+        {% if m['content'] != '' %}
+            <p>[{{ m['sender'] }}] {{ m['content'] }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<form id="" name="" action="" method="">
+    <input type="hidden" name="chat" id="chat" value="{{ chat }}">
+    <input type="hidden" name="user" id="user" value="1">
+    <input type="text" name="message" id="message" value="" placeholder="Send a message">
+    <button type="submit" id="sendMessage">Send</button>
+</form>
+
+<script>
+    sendMessageButton = document.getElementById('sendMessage');
+    /* document.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log('clicked. thanks.');
+    }, false); */
+    sendMessageButton.onclick = function(event) {
+        //window.location.replace("/wuggob");
+        event.preventDefault();
+        if (document.getElementById('message').value !== '') {
+            const url = '/message/{{ chat }}'
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    // eventually, the user and chat values can be pulled directly from 
+                    // the python objects that are passed to the template (w/ logging)
+                    message: document.getElementById('message').value,
+                    user: document.getElementById('user').value,
+                    chat: '{{ chat }}'
+                })
+            };
+            fetch(url, options)
+            .then(response => {
+                console.log('message send successfully.')
+                console.log('fetching latest messages...');
+                getMessages().then(
+                    messages => redrawMessages(messages)
+                )
+                document.getElementById('message').value = '';
+            });            
+        } else {
+            console.log('no message entered.');
+        }
+        
+        //console.log('clicked. thnx');
+    }
+
+    var getMessages = function() {
+        const url = '/message/{{ chat }}'
+        const options = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        };
+        return fetch(url)
+        .then(response => response.json())
+        .then(json => json);
+        /*.then(data => {
+            console.log(data);
+            return data;
+        }*/
+    }
+
+    var redrawMessages = function(messages) {
+        console.log('redrawing: ' + messages);
+        console.log(messages);
+        message_container = document.getElementById('chat');
+        message_container.innerHTML = '';
+        for (m in messages) {
+            console.log(m, messages[m]);
+            var _m = document.createElement('p');
+            _m.innerHTML = '[' + messages[m].sender + '] ' + messages[m].content;
+            message_container.appendChild(_m);
+        }
+    }
+</script>
