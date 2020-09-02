@@ -1,0 +1,49 @@
+html { 
+    font-size: 100%; 
+}
+
+body {
+    background-color: #fefefe;
+    color: #333;
+}
+
+h1 { 
+    font-size: 2.074em; 
+}
+
+h2 { 
+    font-size: 1.728em; 
+}
+
+h3 { 
+    font-size: 1.44em; 
+}
+
+h4 { 
+    font-size: 1.2em; 
+}
+
+small { 
+    font-size: 0.833em; 
+}
+
+.box { 
+    padding: 1.25em; 
+}
+
+@media screen and (min-width: 1400px) {
+  html { 
+      font-size: 125%; 
+    }
+}
+
+button {
+    background-color: #e5989b;
+    color: #333;
+    border: 1px solid #333;
+}
+
+button:hover {
+    background-color: #d4878a;
+    color: #323232;
+}

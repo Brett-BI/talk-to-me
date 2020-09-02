@@ -1,19 +1,33 @@
+{% extends 'shared/chat_layout.html' %}
+
+{% block content %}
 <div id="chat">
     {% for m in messages %}
         {% if m['content'] != '' %}
-            <p>[{{ m['sender'] }}] {{ m['content'] }}</p>
+            <p>[{{ m['username'] }}] {{ m['content'] }}</p>
         {% endif %}
     {% endfor %}
 </div>
 
 <form id="" name="" action="" method="">
     <input type="hidden" name="chat" id="chat" value="{{ chat }}">
-    <input type="hidden" name="user" id="user" value="1">
+    <input type="hidden" name="user" id="user" value="{{ current_user.id }}">
     <input type="text" name="message" id="message" value="" placeholder="Send a message">
     <button type="submit" id="sendMessage">Send</button>
 </form>
 
 <script>
+
+    window.addEventListener('load', function() {
+        var elapsed = 0;
+        setInterval(function() {
+            console.log('fetching messages...');
+            getMessages().then(
+                messages => redrawMessages(messages)
+            )
+        }, 6000)
+    });
+
     sendMessageButton = document.getElementById('sendMessage');
     /* document.addEventListener('click', function(event) {
         event.preventDefault();
@@ -34,7 +48,7 @@
                     // eventually, the user and chat values can be pulled directly from 
                     // the python objects that are passed to the template (w/ logging)
                     message: document.getElementById('message').value,
-                    user: document.getElementById('user').value,
+                    user: '{{ current_user.id }}',
                     chat: '{{ chat }}'
                 })
             };
@@ -80,8 +94,9 @@
         for (m in messages) {
             console.log(m, messages[m]);
             var _m = document.createElement('p');
-            _m.innerHTML = '[' + messages[m].sender + '] ' + messages[m].content;
+            _m.innerHTML = '[' + messages[m].username + '] ' + messages[m].content;
             message_container.appendChild(_m);
         }
     }
 </script>
+{% endblock %}
