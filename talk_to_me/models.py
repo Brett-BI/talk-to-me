@@ -13,9 +13,9 @@ class Message(db.Model):
 
 class DirectMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    sender = db.Column(db.Integer, ForeignKey('user.id'))
-    receiver = db.Column(db.Integer, ForeignKey('user.id'))
-    message = db.Column(db.Integer, ForeignKey('message.id'))
+    sender = db.Column(db.Integer, db.ForeignKey('user.id'))
+    receiver = db.Column(db.Integer, db.ForeignKey('user.id'))
+    message = db.Column(db.Integer, db.ForeignKey('message.id'))
 
 
 class Group(db.Model):
@@ -26,13 +26,13 @@ class Group(db.Model):
 
 
 class GroupMember(db.Model):
-    group = db.Column(db.Integer, ForeignKey('group.id'))
-    member = db.Column(db.Integer, ForeignKey('user.id'))
+    group = db.Column(db.Integer, db.ForeignKey('group.id'), primary_key=True)
+    member = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
 
 
 class GroupMessage(db.Model):
-    group = db.Column(db.Integer, ForeignKey('group.id'))
-    message = db.Column(db.Integer, ForeignKey('message.id'))
+    group = db.Column(db.Integer, db.ForeignKey('group.id'), primary_key=True)
+    message = db.Column(db.Integer, db.ForeignKey('message.id'), primary_key=True)
 
 
 class User(db.Model, UserMixin):

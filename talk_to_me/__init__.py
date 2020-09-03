@@ -2,14 +2,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from datetime import datetime
+import pyodbc
 
 db = SQLAlchemy()
 lm = LoginManager()
 
 def create_app():
     app = Flask(__name__, instance_relative_config=False)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///talk.db'
-    app.config['SECRET_KEY'] = 'a4ab2cdef48df7b0104b3528'
+    app.config.from_object('config.Config')
 
     db.init_app(app)
     lm.init_app(app)
@@ -19,7 +19,7 @@ def create_app():
 
     with app.app_context():
         #from . import routes
-        from .models import Message, User, Chat
+        from .models import Message, User, Group, DirectMessage, GroupMember, GroupMessage
 
         from . import chat
         app.register_blueprint(chat.chat_bp)
@@ -34,7 +34,7 @@ def create_app():
             
             return None
         
-        # db.create_all()
+        #db.create_all()
 
         # chat = Chat()
         # db.session.add(chat)

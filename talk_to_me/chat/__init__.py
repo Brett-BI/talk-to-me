@@ -1,7 +1,7 @@
 from flask import Blueprint, current_app as app, render_template, request, jsonify, redirect, url_for
 from flask_login import current_user
 
-from talk_to_me.models import Message, User, Chat
+#from talk_to_me.models import Message, User, Chat
 from talk_to_me import db
 
 chat_bp = Blueprint('chat_bp', __name__, static_folder='static', static_url_path='/chat_bp/static/', template_folder='templates')
