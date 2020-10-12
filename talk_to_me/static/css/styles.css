@@ -1,10 +1,16 @@
 html { 
-    font-size: 100%; 
+    /*font-size: 16px; */
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 body {
-    background-color: #fefefe;
-    color: #333;
+    background-color: #1c1f22;
+    color: #dee2e6;
+    font-family: 'Space Mono', monospace;
 }
 
 h1 { 
@@ -37,13 +43,64 @@ small {
     }
 }
 
+a {
+    margin-top: 1.5em;
+    margin-bottom: .5em;
+}
+
+a:link {
+    color: #dee2e6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #dee2e6;
+}
+
 button {
-    background-color: #e5989b;
-    color: #333;
-    border: 1px solid #333;
+    background-color: #4ea8de;
+    border: none;
+    color: #212529;
+    margin-top: 1.5em;
+    margin-bottom: .5em;
+    padding: .5em;
 }
 
 button:hover {
-    background-color: #d4878a;
+    background-color: #5390d9;
     color: #323232;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: none;
+    color: inherit;
+    display: block;
+    margin-top: 1.5em;
+    margin-bottom: .5em;
+    padding: .5em;
+    width: 100%;
+}
+
+/*
+    MODIFIERS
+*/
+
+.d-block {
+    display: block;
+    width: 100%;
+}
+
+.float-right {
+    float: right;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-center {
+    text-align: center;
 }

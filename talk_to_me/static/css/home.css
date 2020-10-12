@@ -1,0 +1,34 @@
+.home-container {
+    background-color: #212529;
+    border-top: 5px solid #4ea8de;
+    margin: 3em auto;
+    /*box-shadow: 1px 3px 10px 4px #e8e8e8, 2px 3px 4px #7b7b7b;*/
+    padding: 1.8em;
+    width: 30vw;
+}
+
+/*
+    LOGIN
+*/
+
+.login-form {
+
+}
+
+/*
+    SIGN UP
+*/
+
+.signup-link::before {
+    content: ":"
+}
+
+.signup-link:hover::before {
+    content: ": ";
+    color: #4ea8de;
+}
+
+.signup-link:hover::after {
+    content: " ->";
+    color: #4ea8de;
+}
