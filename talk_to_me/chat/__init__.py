@@ -9,11 +9,18 @@ chat_bp = Blueprint('chat_bp', __name__, static_folder='static', static_url_path
 @chat_bp.route('/', methods=['GET'])
 def home():
     if current_user.username:
-        return render_template('chat/main.html', current_user=current_user)
+        return redirect(url_for('chat_bp.main'))
 
     return render_template('chat/home.html', current_user=current_user)
 
 
+@login_required
+@chat_bp.route('/chat', methods=['GET'])
+def main():
+    return render_template('chat/main.html', current_user=current_user)
+
+
+@login_required
 @chat_bp.route('/chat/<int:chat_id>')
 def chat(chat_id):
     #m = Message.query(User, Message).filter_by(chat=chat_id).order_by(db.desc(Message.id)).limit(10)

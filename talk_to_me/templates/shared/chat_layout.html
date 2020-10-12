@@ -1,12 +1,40 @@
-{% extends 'shared/_layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk to Me</title>
 
+    <link href="{{ url_for('static', filename='css/reset.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/chat.css') }}" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+        {% block header %}
+            <header>T.T.M</header>
+        {% endblock %}
+        </div>
 
-{% block header %}
-    <header>THIS IS HEADER</header>
-{% endblock %}
+        {% block extra_css %}{% endblock %}
 
+        <div id="wrapper-chat">
+            <div id="friends">
+                {% block friends %}
+                {% endblock %}
+            </div>
 
-<div id="content">
-{% block content %}
-{% endblock %}
-</div>
+            <div id="chat">
+            {% block chat %}
+            hi
+            {% endblock %}
+            </div>
+        </div>
+
+        {% block extra_js %}{% endblock %}
+    </div>
+</body>
+</html>
