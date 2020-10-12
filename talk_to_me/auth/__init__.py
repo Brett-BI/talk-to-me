@@ -35,6 +35,7 @@ def login():
     return render_template('auth/login.html')
 
 
+@login_required
 @auth_bp.route('/logout/', methods=['GET'])
 def logout():
     logout_user()

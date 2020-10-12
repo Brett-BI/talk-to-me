@@ -5,6 +5,20 @@ html {
 
 *, *:before, *:after {
     box-sizing: inherit;
+    scrollbar-width: thin;
+    scrollbar-color: transparent #495057;
+}
+
+*::-webkit-scrollbar {
+    width: .25em;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 20px;
+    border: 3px solid #495057;
 }
 
 body {
@@ -12,6 +26,7 @@ body {
     color: #dee2e6;
     font-family: 'Space Mono', monospace;
 }
+  
 
 h1 { 
     font-size: 2.074em; 
@@ -99,6 +114,14 @@ input {
 
 .font-bold {
     font-weight: 700;
+}
+
+.mt-0 {
+    margin-top: 0em;
+}
+
+.mb-0 {
+    margin-bottom: 0em;
 }
 
 .text-center {

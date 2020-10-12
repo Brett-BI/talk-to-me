@@ -1,0 +1,58 @@
+#wrapper {
+    display: grid;
+    grid-template-rows: 2rem auto;
+    height: 100vh;
+}
+
+#wrapper-chat {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 1fr;
+}
+
+#friends {
+    background-color: transparent;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    position: relative;
+    overflow-y: hidden;
+}
+
+.list-friends {
+    max-height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.add-friends {
+    position: sticky;
+    top: 0;
+    background-color: #4ea8de;
+}
+
+.list-friends>ul {
+    padding-bottom: 2rem;
+}
+
+.list-friends>ul>li {
+    margin-top: .25em;
+}
+
+.list-friends>ul>li:hover {
+    font-weight: 700;
+}
+
+.controls-friends {
+    background-color: blue;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#chat {
+    background-color: #212529;
+}
