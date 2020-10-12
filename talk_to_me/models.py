@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask_login import UserMixin
 
-from . import db
+from talk_to_me import db, bcrypt
 
 
 class Message(db.Model):
@@ -37,5 +37,16 @@ class GroupMessage(db.Model):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(length=40))
+    username = db.Column(db.String(length=40), nullable=False)
+    password = db.Column(db.String(length=120), nullable=False)
+    bio = db.Column(db.String(length=200), nullable=True)
+
+    def GeneratePasswordHash(password):
+        return bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def ComparePasswords(form_password, db_password):
+        return bcrypt.check_password_hash(db_password, form_password)
+
+
+
 

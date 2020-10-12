@@ -1,0 +1,18 @@
+{% extends 'shared/_layout.html' %}
+
+{% block extra_css %}
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <div class="home-container">
+        <p><a href="{{ url_for('chat_bp.newChat' ) }}">New Chat</a></p>
+        <br/>
+        <p><a href="{{ url_for('auth_bp.logout') }}">Logout</a></p>
+    </div>
+
+    Logged in as: {{ current_user.username }}
+    
+
+{% endblock %}

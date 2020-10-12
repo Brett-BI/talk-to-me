@@ -10,7 +10,7 @@ auth_bp = Blueprint('auth_bp', __name__, static_folder='static', static_url_path
 def signup():
 
     if request.method == 'POST':
-        newUser = User(username=request.form['username'])
+        newUser = User(username=request.form['username'], password=User.GeneratePasswordHash(request.form['password']))
         db.session.add(newUser)
         db.session.commit()
 
@@ -22,15 +22,20 @@ def login():
     
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form['username']).first()
+        print(User)
 
         if user:
-            login_user(user)
+            if User.ComparePasswords(request.form['password'], user.password):
+                login_user(user)
 
-            return redirect(url_for('chat_bp.home'))
+                return redirect(url_for('chat_bp.home'))
+            else:
+                return redirect(url_for('auth_bp.login'))
 
     return render_template('auth/login.html')
 
 
 @auth_bp.route('/logout/', methods=['GET'])
 def logout():
-    return 'LOGOUT'
+    logout_user()
+    return redirect(url_for('chat_bp.home'))

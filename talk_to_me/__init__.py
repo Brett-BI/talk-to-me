@@ -1,11 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
 from datetime import datetime
 import pyodbc
 
 db = SQLAlchemy()
 lm = LoginManager()
+bcrypt = Bcrypt()
 
 def create_app():
     app = Flask(__name__, instance_relative_config=False)
@@ -13,6 +15,7 @@ def create_app():
 
     db.init_app(app)
     lm.init_app(app)
+    bcrypt.init_app(app)
 
     lm.login_view = 'auth_bp.login'
     lm.login_message = 'Please login to begin talking.'
@@ -34,7 +37,8 @@ def create_app():
             
             return None
         
-        #db.create_all()
+        # db.drop_all()
+        # db.create_all()
 
         # chat = Chat()
         # db.session.add(chat)

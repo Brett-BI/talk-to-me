@@ -1,5 +1,5 @@
 from flask import Blueprint, current_app as app, render_template, request, jsonify, redirect, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 #from talk_to_me.models import Message, User, Chat
 from talk_to_me import db
@@ -8,6 +8,9 @@ chat_bp = Blueprint('chat_bp', __name__, static_folder='static', static_url_path
 
 @chat_bp.route('/', methods=['GET'])
 def home():
+    if current_user.username:
+        return render_template('chat/main.html', current_user=current_user)
+
     return render_template('chat/home.html', current_user=current_user)
 
 
