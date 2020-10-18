@@ -1,40 +1,37 @@
-{% extends 'shared/chat_layout.html' %}
-
-{% block content %}
-<div id="chat">
-    {% for m in messages %}
-        {% if m['content'] != '' %}
-            <p>[{{ m['username'] }}] {{ m['content'] }}</p>
-        {% endif %}
-    {% endfor %}
+<div class="list-friends-wrapper">    
+    <ul id="list-friends" class="list-friends">
+        <li style="color: white;"></li>
+    </ul>
 </div>
-
-<form id="" name="" action="" method="">
-    <input type="hidden" name="chat" id="chat" value="{{ chat }}">
-    <input type="hidden" name="user" id="user" value="{{ current_user.id }}">
-    <input type="text" name="message" id="message" value="" placeholder="Send a message">
-    <button type="submit" id="sendMessage">Send</button>
-</form>
+<div class="controls-friends">
+    <button id="addFriend" class="add-friends d-block mb-0" href="{{ url_for('chat_bp.newChat' ) }}">+</button>
+    <a href="{{ url_for('auth_bp.logout') }}"><button class="d-block mt-0">Logout</button></a>
+</div>
 
 <script>
 
     window.addEventListener('load', function() {
         var elapsed = 0;
-        setInterval(function() {
+        friends = getFriends();
+        friends.then(
+            f => redrawFriendsList(f.friends)
+        )
+        /* setInterval(function() {
             console.log('fetching messages...');
-            getMessages().then(
-                messages => redrawMessages(messages)
+            getFriends().then(
+                friends => redrawFriendsList(friends)
             )
-        }, 6000000)
+        }, 6000) */
     });
 
-    sendMessageButton = document.getElementById('sendMessage');
-    /* document.addEventListener('click', function(event) {
+    addFriendButton = document.getElementById('addFriend');
+    /*document.addEventListener('click', function(event) {
         event.preventDefault();
-        console.log('clicked. thanks.');
-    }, false); */
-    sendMessageButton.onclick = function(event) {
+        console.log('clicked #addFriend. thanks.');
+    }, false);*/
+    addFriendButton.onclick = function(event) {
         //window.location.replace("/wuggob");
+        console.log('addFriend button clicked.')
         event.preventDefault();
         if (document.getElementById('message').value !== '') {
             const url = '/message/{{ chat }}'
@@ -68,8 +65,8 @@
         //console.log('clicked. thnx');
     }
 
-    var getMessages = function() {
-        const url = '/message/{{ chat }}'
+    var getFriends = function() {
+        const url = '/user/friends/{{ current_user.id }}'
         const options = {
             method: 'GET',
             headers: {
@@ -77,26 +74,24 @@
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         };
+        console.log(url);
         return fetch(url)
         .then(response => response.json())
-        .then(json => json);
+        .then(json => json)
         /*.then(data => {
             console.log(data);
             return data;
-        }*/
+        })*/
     }
 
-    var redrawMessages = function(messages) {
-        console.log('redrawing: ' + messages);
-        console.log(messages);
-        message_container = document.getElementById('chat');
-        message_container.innerHTML = '';
-        for (m in messages) {
-            console.log(m, messages[m]);
-            var _m = document.createElement('p');
-            _m.innerHTML = '[' + messages[m].username + '] ' + messages[m].content;
-            message_container.appendChild(_m);
+    var redrawFriendsList = function(friends) {
+        console.log(friends);
+        friends_ul = document.getElementById('list-friends');
+        friends_ul.innerHTML = '';
+        for (f in friends) {
+            var _f = document.createElement('li');
+            _f.innerHTML = friends[f].username + ' (online)';
+            friends_ul.appendChild(_f);
         }
     }
 </script>
-{% endblock %}
