@@ -18,7 +18,7 @@
     overflow-y: hidden;
 }
 
-.list-friends {
+.list-friends-wrapper {
     max-height: 100%;
     display: block;
     position: absolute;
@@ -33,20 +33,19 @@
     background-color: #4ea8de;
 }
 
-.list-friends>ul {
+.list-friends {
     padding-bottom: 2rem;
 }
 
-.list-friends>ul>li {
+.list-friends>li {
     margin-top: .25em;
 }
 
-.list-friends>ul>li:hover {
+.list-friends>li:hover {
     font-weight: 700;
 }
 
 .controls-friends {
-    background-color: blue;
     display: block;
     position: absolute;
     bottom: 0;

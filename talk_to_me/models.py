@@ -47,6 +47,11 @@ class User(db.Model, UserMixin):
     def ComparePasswords(form_password, db_password):
         return bcrypt.check_password_hash(db_password, form_password)
 
-
+#psycopg2==2.8.4
+class Friend(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    friend_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    favorite = db.Column(db.Boolean(), nullable=True, default=False)
+    note = db.Column(db.String(length=80), nullable=True)
 
 
